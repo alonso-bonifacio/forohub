@@ -1,6 +1,7 @@
 package org.alura.forohub.domain.usuarios;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,6 +26,10 @@ public class Usuario implements UserDetails {
     private Long id;
     private String login;
     private String clave;
+
+    public Usuario(Long id) {
+        this.id = id;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -22,10 +22,35 @@ public class Topico {
     private String titulo;
     private String mensaje;
     private LocalDateTime fechaCreacion;
-    private boolean status;
+    private Boolean status;
     private String curso;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "autor_id")
     private Usuario autor;
+
+    public Topico(DatosRegistroTopico datos) {
+        this.titulo = datos.titulo();
+        this.mensaje = datos.mensaje();
+        this.curso = datos.nombreCurso();
+        this.fechaCreacion = LocalDateTime.now();
+        this.autor = new Usuario(datos.idUsuario());
+        this.status = true;
+    }
+
+    public void actualizarInformaciones(DatosActualizarTopico datos) {
+        if (datos.titulo() != null) {
+            this.titulo = datos.titulo();
+        }
+        if (datos.mensaje() != null) {
+            this.mensaje = datos.mensaje();
+        }
+        if (datos.nombreCurso() != null) {
+            this.curso = datos.nombreCurso();
+        }
+    }
+
+    public void eliminar() {
+        this.status = false;
+    }
 }
